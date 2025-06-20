@@ -10,10 +10,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        /* Estilos Originales */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
             color: #3A4A6D;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .chart-container {
             position: relative;
@@ -53,12 +55,8 @@
             background-color: inherit;
             width: 50%;
         }
-        .timeline-container.left {
-            left: 0;
-        }
-        .timeline-container.right {
-            left: 50%;
-        }
+        .timeline-container.left { left: 0; }
+        .timeline-container.right { left: 50%; }
         .timeline-container::after {
             content: '';
             position: absolute;
@@ -71,12 +69,8 @@
             border-radius: 50%;
             z-index: 1;
         }
-        .timeline-container.right::after {
-            left: -10px;
-        }
-        .timeline-container.left::after {
-            right: -10px;
-        }
+        .timeline-container.right::after { left: -10px; }
+        .timeline-container.left::after { right: -10px; }
         .timeline-content {
             padding: 20px 30px;
             background-color: white;
@@ -85,27 +79,60 @@
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
         }
         @media screen and (max-width: 768px) {
-            .timeline::after {
-                left: 20px;
-            }
-            .timeline-container {
-                width: 100%;
-                padding-left: 60px;
-                padding-right: 15px;
-            }
-            .timeline-container.right {
-                left: 0%;
-            }
-            .timeline-container.left::after, .timeline-container.right::after {
-                left: 10px;
-            }
+            .timeline::after { left: 20px; }
+            .timeline-container { width: 100%; padding-left: 60px; padding-right: 15px; }
+            .timeline-container.right { left: 0%; }
+            .timeline-container.left::after, .timeline-container.right::after { left: 10px; }
+        }
+
+        /* --- Estilos para Modo Oscuro --- */
+        html.dark body {
+            background-color: #1a202c; /* gray-900 */
+            color: #e2e8f0; /* slate-200 */
+        }
+        html.dark .bg-slate-50 {
+            background-color: #1a202c; /* gray-900 */
+        }
+        html.dark .bg-white {
+            background-color: #2d3748; /* gray-800 */
+        }
+        html.dark .text-gray-600, html.dark .text-gray-700 {
+            color: #a0aec0; /* gray-400 */
+        }
+        html.dark .text-\[\#3A4A6D\] {
+            color: #e2e8f0; /* slate-200 */
+        }
+        html.dark .text-\[\#7B6D8D\] {
+            color: #b794f4; /* purple-400 */
+        }
+        html.dark .text-\[\#FFC15E\] {
+            color: #f6e05e; /* yellow-400 */
+        }
+        html.dark .kpi-card {
+            border-left-color: #f6e05e; /* yellow-400 */
+        }
+        html.dark .timeline::after {
+            background-color: #9f7aea; /* purple-500 */
+        }
+        html.dark .timeline-container::after {
+            border-color: #f6e05e; /* yellow-400 */
+            background-color: #2d3748; /* gray-800 */
+        }
+        html.dark footer.bg-\[\#3A4A6D\] {
+            background-color: #e2e8f0; /* slate-200 */
+        }
+        html.dark footer.text-white {
+            color: #1a202c; /* gray-900 */
+        }
+        html.dark a.bg-\[\#3A4A6D\] {
+            background-color: #9f7aea; /* purple-500 */
         }
     </style>
 </head>
 <body class="bg-slate-50">
 
     <header class="bg-white shadow-sm">
-        <div class="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
+        <div class="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center relative">
             <h1 class="text-4xl md:text-5xl font-extrabold text-[#3A4A6D]">Casos de Estudio: Odoo</h1>
             <p class="mt-4 text-lg text-gray-600">Análisis de Desafíos, Soluciones y Resultados en Proyectos Reales.</p>
             <div class="mt-8">
@@ -113,6 +140,11 @@
                     &larr; Volver a la Visión de Odoo 17
                 </a>
             </div>
+             <!-- Botón para cambiar tema -->
+            <button id="theme-toggle" class="absolute top-4 right-4 p-2 rounded-full text-[#3A4A6D] focus:outline-none">
+                <svg id="theme-icon-light" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <svg id="theme-icon-dark" class="h-6 w-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            </button>
         </div>
     </header>
 
@@ -232,68 +264,110 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const ctx = document.getElementById('performanceChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Carga de Vistas de kanban', 'Generación de Reportes Complejos'],
-                    datasets: [
-                        {
-                            label: 'Antes de Optimización (segundos)',
-                            data: [50.5, 60.3],
-                            backgroundColor: '#F7B0C0',
-                            borderColor: '#F7B0C0',
-                            borderWidth: 1
+            // --- Lógica para Modo Oscuro ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const lightIcon = document.getElementById('theme-icon-light');
+            const darkIcon = document.getElementById('theme-icon-dark');
+            const htmlElement = document.documentElement;
+            let performanceChart; // Instancia del gráfico
+
+            // Función para aplicar el tema y guardarlo
+            function setTheme(theme) {
+                localStorage.setItem('theme', theme);
+                if (theme === 'dark') {
+                    htmlElement.classList.add('dark');
+                    lightIcon.classList.add('hidden');
+                    darkIcon.classList.remove('hidden');
+                } else {
+                    htmlElement.classList.remove('dark');
+                    lightIcon.classList.remove('hidden');
+                    darkIcon.classList.add('hidden');
+                }
+                // Vuelve a dibujar el gráfico con los colores del nuevo tema
+                renderPerformanceChart();
+            }
+
+            // Event listener para el botón
+            themeToggleBtn.addEventListener('click', () => {
+                const currentTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
+                setTheme(currentTheme);
+            });
+
+            // Cargar el tema guardado o el preferido por el sistema al iniciar la página
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            setTheme(savedTheme);
+
+
+            // --- Lógica Original del Gráfico (Integrada con el modo oscuro) ---
+            function renderPerformanceChart() {
+                 if (performanceChart) {
+                    performanceChart.destroy();
+                }
+                const isDark = htmlElement.classList.contains('dark');
+                const chartTextColor = isDark ? '#e2e8f0' : '#3A4A6D';
+                const gridColor = isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.1)';
+                
+                const ctx = document.getElementById('performanceChart').getContext('2d');
+                performanceChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Carga de Vistas de kanban', 'Generación de Reportes Complejos'],
+                        datasets: [
+                            {
+                                label: 'Antes de Optimización (segundos)',
+                                data: [50.5, 60.3],
+                                backgroundColor: '#F7B0C0',
+                                borderColor: '#F7B0C0',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Después de Optimización (segundos)',
+                                data: [10.2, 15.1],
+                                backgroundColor: '#FFC15E',
+                                borderColor: '#FFC15E',
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: { display: true, text: 'Tiempo de Carga (segundos)', color: chartTextColor },
+                                ticks: { color: chartTextColor },
+                                grid: { color: gridColor }
+                            },
+                            x: {
+                                ticks: { color: chartTextColor },
+                                grid: { color: gridColor }
+                            }
                         },
-                        {
-                            label: 'Después de Optimización (segundos)',
-                            data: [10.2, 15.1],
-                            backgroundColor: '#FFC15E',
-                            borderColor: '#FFC15E'  ,
-                            borderWidth: 1
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
+                        plugins: {
                             title: {
                                 display: true,
-                                text: 'Tiempo de Carga (segundos)'
-                            }
-                        }
-                    },
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Comparativa de Rendimiento del Sistema',
-                            font: {
-                                size: 18
+                                text: 'Comparativa de Rendimiento del Sistema',
+                                font: { size: 18 },
+                                color: chartTextColor,
+                                padding: { top: 10, bottom: 30 }
                             },
-                            padding: {
-                                top: 10,
-                                bottom: 30
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                title: function(tooltipItems) {
-                                    const item = tooltipItems[0];
-                                    let label = item.chart.data.labels[item.dataIndex];
-                                    if (Array.isArray(label)) {
-                                      return label.join(' ');
-                                    } else {
-                                      return label;
+                             legend: {
+                                labels: { color: chartTextColor }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    title: function(tooltipItems) {
+                                        const item = tooltipItems[0];
+                                        let label = item.chart.data.labels[item.dataIndex];
+                                        return Array.isArray(label) ? label.join(' ') : label;
                                     }
                                 }
                             }
                         }
                     }
-                }
-            });
+                });
+            }
         });
     </script>
 

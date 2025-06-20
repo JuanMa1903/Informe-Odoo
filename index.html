@@ -10,9 +10,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Estilos Originales */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc; /* slate-50 */
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .nav-link {
             transition: color 0.3s ease, border-bottom-color 0.3s ease;
@@ -52,6 +54,81 @@
             height: 350px;
             max-height: 400px;
         }
+
+        /* --- Estilos para Modo Oscuro --- */
+        html.dark body {
+            background-color: #0f172a; /* slate-900 */
+            color: #cbd5e1; /* slate-300 */
+        }
+        html.dark .bg-white {
+            background-color: #1e293b; /* slate-800 */
+        }
+        html.dark .bg-white\/80 { /* Para el header con transparencia */
+            background-color: rgba(30, 41, 59, 0.8);
+        }
+        html.dark .bg-slate-50 {
+            background-color: #334155; /* slate-700 */
+        }
+        html.dark .bg-slate-100 {
+            background-color: #475569; /* slate-600 */
+        }
+        html.dark .text-slate-500 { color: #94a3b8; /* slate-400 */ }
+        html.dark .text-slate-600 { color: #94a3b8; /* slate-400 */ }
+        html.dark .text-slate-700 { color: #cbd5e1; /* slate-300 */ }
+        html.dark .text-slate-800 { color: #f1f5f9; /* slate-100 */ }
+        html.dark .text-slate-900 { color: #f8fafc; /* slate-50 */ }
+        html.dark .text-sky-500 { color: #38bdf8; /* sky-400 */ }
+        html.dark .text-sky-600 { color: #38bdf8; /* sky-400 */ }
+        html.dark .text-sky-700 { color: #7dd3fc; /* sky-300 */ }
+
+        html.dark .nav-link.active, html.dark .nav-link:hover {
+            color: #38bdf8; /* sky-400 */
+            border-bottom-color: #38bdf8;
+        }
+
+        html.dark .workflow-step {
+             border-color: #334155; /* slate-700 */
+        }
+        html.dark .workflow-step.active {
+            background-color: #38bdf8; /* sky-400 */
+            color: #1e293b; /* slate-800 */
+        }
+        html.dark .workflow-step.active .step-icon {
+            color: #1e293b; /* slate-800 */
+        }
+        html.dark .arch-layer {
+            border-color: #334155;
+        }
+        html.dark .arch-layer.border-sky-500 {
+            border-color: #38bdf8;
+        }
+        html.dark .arch-layer.bg-sky-50 {
+            background-color: #0c4a6e; /* sky-900 */
+        }
+
+        html.dark #btn-studio.bg-white {
+            background-color: #334155; /* slate-700 */
+        }
+        html.dark #btn-studio.text-slate-700 {
+            color: #cbd5e1; /* slate-300 */
+        }
+        html.dark #btn-inheritance.bg-sky-600 {
+             background-color: #38bdf8; /* sky-400 */
+             color: #1e293b;
+        }
+        html.dark .bg-slate-800 {
+            background-color: #475569; /* slate-600 */
+        }
+        html.dark footer.bg-slate-800 {
+            background-color: #e2e8f0; /* slate-200 */
+        }
+        html.dark footer.text-white {
+            color: #1e293b; /* slate-800 */
+        }
+        html.dark footer .text-slate-400 {
+            color: #475569; /* slate-600 */
+        }
+
     </style>
 </head>
 <body class="text-slate-700">
@@ -62,14 +139,20 @@
                 <div class="flex-shrink-0">
                     <a href="#" class="text-xl font-bold text-slate-800">Odoo 17</a>
                 </div>
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="#concepto" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Concepto</a>
-                        <a href="#herramientas" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Herramientas</a>
-                        <a href="#uso" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Caso de Uso</a>
-                        <a href="#relevancia" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Relevancia</a>
-                        <a href="presentación.html" class="nav-link px-3 py-2 rounded-md text-sm font-bold text-sky-600">Casos de Estudio</a>
+                <div class="flex items-center">
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="#concepto" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Concepto</a>
+                            <a href="#herramientas" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Herramientas</a>
+                            <a href="#uso" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Caso de Uso</a>
+                            <a href="#relevancia" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Relevancia</a>
+                            <a href="presentación.html" class="nav-link px-3 py-2 rounded-md text-sm font-bold text-sky-600">Casos de Estudio</a>
+                        </div>
                     </div>
+                    <button id="theme-toggle" class="ml-4 p-2 rounded-full text-slate-800 focus:outline-none">
+                        <svg id="theme-icon-light" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        <svg id="theme-icon-dark" class="h-5 w-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    </button>
                 </div>
             </div>
         </nav>
@@ -272,6 +355,99 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- Lógica para Modo Oscuro ---
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const lightIcon = document.getElementById('theme-icon-light');
+    const darkIcon = document.getElementById('theme-icon-dark');
+    const htmlElement = document.documentElement;
+    let modularityChart; // Instancia del gráfico
+
+    // Función para aplicar el tema y guardarlo
+    function setTheme(theme) {
+        localStorage.setItem('theme', theme);
+        if (theme === 'dark') {
+            htmlElement.classList.add('dark');
+            lightIcon.classList.add('hidden');
+            darkIcon.classList.remove('hidden');
+        } else {
+            htmlElement.classList.remove('dark');
+            lightIcon.classList.remove('hidden');
+            darkIcon.classList.add('hidden');
+        }
+        // Vuelve a dibujar el gráfico con los colores del nuevo tema
+        renderModularityChart();
+        // Actualiza los estilos de los botones de personalización
+        showCustomization(activeCustomizationType);
+    }
+
+    // Event listener para el botón
+    themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
+        setTheme(currentTheme);
+    });
+
+    // Cargar el tema guardado o el preferido por el sistema al iniciar la página
+    const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+
+    // --- Lógica Original del Gráfico (Integrada con el modo oscuro) ---
+    function renderModularityChart() {
+        if (modularityChart) {
+            modularityChart.destroy();
+        }
+        const isDark = htmlElement.classList.contains('dark');
+        const chartTextColor = isDark ? '#cbd5e1' : '#64748b';
+        const chartTitleColor = isDark ? '#f8fafc' : '#1e293b';
+        const chartBorderColor = isDark ? '#1e293b' : '#f8fafc';
+
+        const ctx = document.getElementById('modularityChart').getContext('2d');
+        modularityChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Núcleo del Framework', 'Apps Oficiales de Odoo', 'Apps de Comunidad/Personalizadas'],
+                datasets: [{
+                    label: 'Composición del Ecosistema Odoo',
+                    data: [20, 50, 30],
+                    backgroundColor: [
+                        'rgba(14, 165, 233, 0.7)', // sky-500
+                        'rgba(2, 132, 199, 0.8)',   // sky-600
+                        'rgba(3, 105, 161, 0.9)'    // sky-700
+                    ],
+                    borderColor: chartBorderColor,
+                    borderWidth: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: chartTextColor }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) { label += ': '; }
+                                if (context.parsed !== null) { label += context.parsed + '% (Conceptual)'; }
+                                return label;
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Ecosistema Modular de Odoo (Conceptual)',
+                        font: { size: 16 },
+                        color: chartTitleColor,
+                        padding: { top: 10, bottom: 20 }
+                    }
+                }
+            }
+        });
+    }
+
+    // --- Lógica Original de la Arquitectura ---
     const architectureLayers = {
         presentation: {
             title: 'Capa de Presentación',
@@ -286,7 +462,6 @@ document.addEventListener('DOMContentLoaded', () => {
             content: 'Utiliza exclusivamente <strong>PostgreSQL</strong> como sistema gestor de base de datos. Es responsable de la persistencia, integridad y almacenamiento seguro de toda la información de la aplicación.'
         }
     };
-
     const architectureDiagram = document.getElementById('architecture-diagram');
     const architectureDetails = document.getElementById('architecture-details');
     architectureDiagram.addEventListener('click', (e) => {
@@ -304,12 +479,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
                 architectureDetails.style.opacity = 1;
             }, 300);
-            
             document.querySelectorAll('.arch-layer').forEach(el => el.classList.remove('border-sky-500', 'bg-sky-50'));
             layerElement.classList.add('border-sky-500', 'bg-sky-50');
         }
     });
 
+    // --- Lógica Original de Personalización ---
     const customizationContent = {
         inheritance: `
             <div class="bg-white p-6 rounded-lg shadow-md">
@@ -337,13 +512,16 @@ class ResPartner(models.Model):
                 </ul>
             </div>`
     };
-
     const btnInheritance = document.getElementById('btn-inheritance');
     const btnStudio = document.getElementById('btn-studio');
     const customizationContainer = document.getElementById('customization-content');
+    let activeCustomizationType = 'inheritance'; // Para saber qué botón está activo
 
     function showCustomization(type) {
+        activeCustomizationType = type; // Guardar el estado
         customizationContainer.innerHTML = customizationContent[type];
+        const isDark = htmlElement.classList.contains('dark');
+        
         if (type === 'inheritance') {
             btnInheritance.classList.add('bg-sky-600', 'text-white');
             btnInheritance.classList.remove('bg-white', 'text-slate-700');
@@ -356,52 +534,27 @@ class ResPartner(models.Model):
             btnInheritance.classList.remove('bg-sky-600', 'text-white');
         }
     }
-
     btnInheritance.addEventListener('click', () => showCustomization('inheritance'));
     btnStudio.addEventListener('click', () => showCustomization('studio'));
-    showCustomization('inheritance');
-
-    const workflowSteps = {
-        crm: {
-            title: '1. Gestión de Relaciones con el Cliente (CRM)',
-            description: 'Todo comienza aquí. Se registra un nuevo cliente potencial. El equipo de ventas gestiona las oportunidades, llamadas y reuniones a través de un pipeline visual, asegurando un seguimiento adecuado.'
-        },
-        sales: {
-            title: '2. Ventas',
-            description: 'Se genera una cotización detallada desde la oportunidad en el CRM. Con el <strong>nuevo maquetador de cotizaciones de Odoo 17</strong>, se pueden crear propuestas personalizadas con bloques de contenido, imágenes y descripciones enriquecidas.'
-        },
-        projects: {
-            title: '3. Proyectos',
-            description: 'Automáticamente, la orden de venta crea un nuevo proyecto. En Odoo 17, las vistas Kanban mejoradas permiten <strong>visualizar sub-tareas directamente desde la tarjeta de la tarea principal</strong>, mejorando la organización.'
-        },
-        timesheets: {
-            title: '4. Hojas de Horas (Timesheets)',
-            description: 'Los ingenieros y consultores registran el tiempo trabajado directamente en las tareas del proyecto. Esto permite un control preciso de los costos de mano de obra y la rentabilidad.'
-        },
-        purchases: {
-            title: '5. Compras',
-            description: 'Si el proyecto requiere materiales o equipos, se crea una orden de compra directamente desde una tarea, vinculando el costo al proyecto correspondiente para un análisis financiero completo.'
-        },
-        invoicing: {
-            title: '6. Facturación',
-            description: 'La facturación se vuelve flexible. Se puede facturar al cliente basándose en los hitos del proyecto completados, las horas registradas en las hojas de horas o un precio fijo, todo con información extraída del sistema.'
-        },
-        accounting: {
-            title: '7. Contabilidad',
-            description: 'Todas las facturas y pagos se registran en Contabilidad. Odoo 17 mejora este proceso con la <strong>digitalización de facturas de proveedor mediante IA (OCR)</strong>, automatizando la creación de borradores de facturas.'
-        }
-    };
     
+
+    // --- Lógica Original del Workflow ---
+    const workflowSteps = {
+        crm: { title: '1. Gestión de Relaciones con el Cliente (CRM)', description: 'Todo comienza aquí. Se registra un nuevo cliente potencial. El equipo de ventas gestiona las oportunidades, llamadas y reuniones a través de un pipeline visual, asegurando un seguimiento adecuado.'},
+        sales: { title: '2. Ventas', description: 'Se genera una cotización detallada desde la oportunidad en el CRM. Con el <strong>nuevo maquetador de cotizaciones de Odoo 17</strong>, se pueden crear propuestas personalizadas con bloques de contenido, imágenes y descripciones enriquecidas.'},
+        projects: { title: '3. Proyectos', description: 'Automáticamente, la orden de venta crea un nuevo proyecto. En Odoo 17, las vistas Kanban mejoradas permiten <strong>visualizar sub-tareas directamente desde la tarjeta de la tarea principal</strong>, mejorando la organización.'},
+        timesheets: { title: '4. Hojas de Horas (Timesheets)', description: 'Los ingenieros y consultores registran el tiempo trabajado directamente en las tareas del proyecto. Esto permite un control preciso de los costos de mano de obra y la rentabilidad.'},
+        purchases: { title: '5. Compras', description: 'Si el proyecto requiere materiales o equipos, se crea una orden de compra directamente desde una tarea, vinculando el costo al proyecto correspondiente para un análisis financiero completo.'},
+        invoicing: { title: '6. Facturación', description: 'La facturación se vuelve flexible. Se puede facturar al cliente basándose en los hitos del proyecto completados, las horas registradas en las hojas de horas o un precio fijo, todo con información extraída del sistema.'},
+        accounting: { title: '7. Contabilidad', description: 'Todas las facturas y pagos se registran en Contabilidad. Odoo 17 mejora este proceso con la <strong>digitalización de facturas de proveedor mediante IA (OCR)</strong>, automatizando la creación de borradores de facturas.'}
+    };
     const workflowContainer = document.getElementById('workflow-container');
     const workflowDetails = document.getElementById('workflow-details');
     
     function updateWorkflowDetails(stepKey) {
         const stepData = workflowSteps[stepKey];
         const currentContent = workflowDetails.querySelector('.content');
-        if (currentContent) {
-            currentContent.style.opacity = 0;
-        }
-
+        if (currentContent) { currentContent.style.opacity = 0; }
         setTimeout(() => {
             workflowDetails.innerHTML = `
                 <div class="content transition-opacity duration-500 opacity-0">
@@ -410,15 +563,11 @@ class ResPartner(models.Model):
                 </div>
                 <div class="absolute bottom-2 right-4 text-6xl text-sky-100/50 -z-10">${document.getElementById('step-' + stepKey).querySelector('.step-icon').textContent}</div>
             `;
-            setTimeout(() => {
-                 workflowDetails.querySelector('.content').style.opacity = 1;
-            }, 50);
+            setTimeout(() => { workflowDetails.querySelector('.content').style.opacity = 1; }, 50);
         }, 300);
-
         document.querySelectorAll('.workflow-step').forEach(el => el.classList.remove('active'));
         document.getElementById('step-' + stepKey).classList.add('active');
     }
-
     workflowContainer.addEventListener('click', e => {
         const stepElement = e.target.closest('.workflow-step');
         if(stepElement) {
@@ -427,11 +576,10 @@ class ResPartner(models.Model):
         }
     });
     
-    updateWorkflowDetails('crm');
 
+    // --- Lógica Original de Scroll y Navegación ---
     const sections = document.querySelectorAll('.section-fade-in');
     const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
-
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -442,73 +590,22 @@ class ResPartner(models.Model):
             }
         });
     }, { threshold: 0.1 });
-
-    sections.forEach(section => {
-        observer.observe(section);
-    });
+    sections.forEach(section => { observer.observe(section); });
     
     navLinks.forEach(link => {
         link.addEventListener('click', e => {
-            e.preventDefault();
-            document.querySelector(link.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+            const href = link.getAttribute('href');
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
+            }
         });
     });
 
-    const ctx = document.getElementById('modularityChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Núcleo del Framework', 'Apps Oficiales de Odoo', 'Apps de Comunidad/Personalizadas'],
-            datasets: [{
-                label: 'Composición del Ecosistema Odoo',
-                data: [20, 50, 30],
-                backgroundColor: [
-                    'rgba(14, 165, 233, 0.7)', // sky-500
-                    'rgba(2, 132, 199, 0.8)', // sky-600
-                    'rgba(3, 105, 161, 0.9)' // sky-700
-                ],
-                borderColor: '#f8fafc',
-                borderWidth: 4
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            let label = context.label || '';
-                            if (label) {
-                                label += ': ';
-                            }
-                            if (context.parsed !== null) {
-                                label += context.parsed + '% (Conceptual)';
-                            }
-                            return label;
-                        }
-                    }
-                },
-                title: {
-                    display: true,
-                    text: 'Ecosistema Modular de Odoo (Conceptual)',
-                    font: {
-                        size: 16
-                    },
-                    padding: {
-                        top: 10,
-                        bottom: 20
-                    }
-                }
-            }
-        }
-    });
-
+    // --- Llamadas iniciales al cargar la página ---
+    setTheme(savedTheme); // Aplicar tema al inicio
+    showCustomization('inheritance'); // Mostrar la primera pestaña de personalización
+    updateWorkflowDetails('crm'); // Mostrar el primer paso del workflow
 });
 </script>
 </body>
