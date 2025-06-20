@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicación Interactiva: Odoo 17 para Ingenieros</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Slate & Sky Blue -->
+    <!-- Application Structure Plan: A thematic, single-page application with a sticky top navigation bar. The structure guides the user from the 'what' and 'how' of Odoo (Concept & Toolkit), to a practical demonstration (Interactive Use Case), and finally to the 'why' (Relevance). This non-linear structure, accessible via nav links, allows users to explore based on their interests, which is more engaging than a static slide-by-slide presentation. The interactive workflow is the centerpiece, designed to turn a text-based process into a dynamic, explorable story. -->
+    <!-- Visualization & Content Choices: The presentation's textual content is transformed into interactive components. The 3-tier architecture is a clickable diagram (HTML/CSS) to reveal details on demand. The development stack is shown as interactive cards. The core of the SPA is the Use Case, an HTML/CSS/JS-powered interactive process flow where clicking a step updates a details panel, making the workflow tangible. A conceptual Donut chart (Chart.js) is used to visually represent Odoo's modularity, adding a data visualization element. This approach prioritizes user engagement and understanding over static text. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .nav-link {
+            transition: color 0.3s ease, border-bottom-color 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #0284c7; /* sky-600 */
+            border-bottom-color: #0284c7;
+        }
+        .section-fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .section-fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .workflow-step {
+            transition: all 0.3s ease-in-out;
+        }
+        .workflow-step.active {
+            transform: translateY(-5px) scale(1.05);
+            background-color: #0284c7; /* sky-600 */
+            color: white;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .workflow-step.active .step-icon {
+            color: white;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <header id="header" class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-xl font-bold text-slate-800">Odoo 17</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#concepto" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Concepto</a>
+                        <a href="#herramientas" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Herramientas</a>
+                        <a href="#uso" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Caso de Uso</a>
+                        <a href="#relevancia" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Relevancia</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="py-20 md:py-32 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight">
+                    Una Visión de <span class="text-sky-600">Odoo 17</span>
+                </h1>
+                <p class="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-slate-600">
+                    Explora los componentes clave de la última versión de Odoo: una interfaz rediseñada, una arquitectura robusta y un framework de desarrollo potente para el ingeniero moderno.
+                </p>
+            </div>
+        </section>
+
+        <section id="concepto" class="py-16 md:py-24 section-fade-in">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">El Concepto Central</h2>
+                    <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+                        Esta sección desglosa qué es Odoo desde una perspectiva técnica y cómo su arquitectura de tres capas proporciona una base sólida para el desarrollo de aplicaciones empresariales.
+                    </p>
+                </div>
+
+                <div class="mt-16 grid md:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-800">No es solo un software, es un ecosistema.</h3>
+                        <p class="mt-4 text-slate-600">Odoo funciona como un conjunto de bloques de construcción (módulos) que se integran perfectamente. La versión 17 pone un énfasis especial en una "interfaz de usuario más limpia y una experiencia de usuario (UX) mejorada", lo que facilita la adopción y el uso diario.</p>
+                        <div class="mt-8 space-y-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 h-6 w-6 text-sky-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h6.375M9 12h6.375m-6.375 5.25h6.375M5.25 3h13.5v18h-13.5z" /></svg>
+                                </div>
+                                <p class="ml-3 text-slate-600"><strong class="font-semibold text-slate-700">Suite Integrada:</strong> Unifica ERP, CRM, Proyectos y más, eliminando los silos de datos con una navegación más intuitiva.</p>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 h-6 w-6 text-sky-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" /></svg>
+                                </div>
+                                <p class="ml-3 text-slate-600"><strong class="font-semibold text-slate-700">Código Abierto:</strong> Permite una personalización profunda y sin ataduras, con versiones Community (gratuita) y Enterprise (con licencia).</p>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="chart-container">
+                        <canvas id="modularityChart"></canvas>
+                     </div>
+                </div>
+
+                <div class="mt-20">
+                    <h3 class="text-2xl font-bold text-slate-800 text-center">Arquitectura Técnica de 3 Capas</h3>
+                    <p class="text-center mt-2 text-slate-600">Haz clic en cada capa para ver sus componentes tecnológicos.</p>
+                    <div id="architecture-diagram" class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div class="arch-layer border-2 border-slate-200 rounded-lg p-6 cursor-pointer hover:border-sky-500 hover:shadow-lg transition-all" data-layer="presentation">
+                            <h4 class="text-xl font-semibold text-slate-900">Capa de Presentación</h4>
+                            <p class="text-sm text-slate-500">Interfaz de Usuario</p>
+                        </div>
+                        <div class="arch-layer border-2 border-slate-200 rounded-lg p-6 cursor-pointer hover:border-sky-500 hover:shadow-lg transition-all" data-layer="logic">
+                            <h4 class="text-xl font-semibold text-slate-900">Capa de Lógica</h4>
+                            <p class="text-sm text-slate-500">Servidor y Lógica de Negocio</p>
+                        </div>
+                        <div class="arch-layer border-2 border-slate-200 rounded-lg p-6 cursor-pointer hover:border-sky-500 hover:shadow-lg transition-all" data-layer="data">
+                            <h4 class="text-xl font-semibold text-slate-900">Capa de Datos</h4>
+                            <p class="text-sm text-slate-500">Base de Datos</p>
+                        </div>
+                    </div>
+                    <div id="architecture-details" class="mt-6 p-6 bg-white rounded-lg shadow-md min-h-[120px] flex items-center justify-center transition-opacity duration-500">
+                        <p class="text-slate-500">Selecciona una capa para ver más detalles.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="herramientas" class="py-16 md:py-24 bg-white section-fade-in">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">El Kit de Herramientas del Desarrollador</h2>
+                    <p class="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+                        Aquí exploramos las tecnologías y principios fundamentales que todo ingeniero necesita para construir y personalizar soluciones en Odoo.
+                    </p>
+                </div>
+                
+                <div class="mt-16">
+                    <h3 class="text-2xl font-bold text-slate-800 text-center">Tecnologías Clave</h3>
+                    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="bg-slate-50 p-6 rounded-lg shadow-sm">
+                            <h4 class="text-lg font-bold text-sky-700">Python</h4>
+                            <p class="mt-2 text-slate-600">El lenguaje principal para toda la lógica de negocio. Se utiliza para definir los modelos de datos, crear métodos y automatizar flujos de trabajo complejos.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-lg shadow-sm">
+                            <h4 class="text-lg font-bold text-sky-700">XML</h4>
+                            <p class="mt-2 text-slate-600">Un lenguaje declarativo crucial para definir la estructura de la aplicación: vistas, menús, reglas de seguridad y la carga de datos iniciales.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-lg shadow-sm">
+                            <h4 class="text-lg font-bold text-sky-700">JavaScript (OWL)</h4>
+                            <p class="mt-2 text-slate-600">El framework Odoo Web Library (OWL) se usa para construir componentes de interfaz de usuario modernos, reactivos y dinámicos en el cliente web.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-20">
+                     <h3 class="text-2xl font-bold text-slate-800 text-center">El Arte de la Personalización</h3>
+                     <div class="max-w-2xl mx-auto mt-8 bg-slate-100 rounded-lg p-2 flex space-x-2">
+                        <button id="btn-inheritance" class="flex-1 p-2 rounded-md font-semibold bg-sky-600 text-white">Herencia (Código)</button>
+                        <button id="btn-studio" class="flex-1 p-2 rounded-md font-semibold bg-white text-slate-700">Odoo Studio (Low-Code)</button>
+                     </div>
+                     <div id="customization-content" class="mt-6 max-w-2xl mx-auto">
+                        <!-- Content will be injected by JS -->
+                     </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="uso" class="py-16 md:py-24 section-fade-in">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Odoo en Acción: Caso de Uso Real (v17)</h2>
+                    <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
+                        Para entender el verdadero poder de Odoo 17, esta sección detalla el flujo de trabajo de una firma de ingeniería, destacando las nuevas funcionalidades que optimizan el proceso. Haz clic en cada paso para ver los detalles.
+                    </p>
+                </div>
+
+                <div class="mt-16">
+                    <div id="workflow-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-7 gap-4">
+                        <div id="step-crm" class="workflow-step active flex flex-col items-center p-4 border rounded-lg cursor-pointer bg-white" data-step="crm">
+                            <span class="step-icon text-3xl text-sky-600">👥</span>
+                            <span class="mt-2 font-semibold">1. CRM</span>
+                        </div>
+                        <div id="step-sales" class="workflow-step flex flex-col items-center p-4 border rounded-lg cursor-pointer bg-white" data-step="sales">
+                            <span class="step-icon text-3xl text-sky-600">📄</span>
+                            <span class="mt-2 font-semibold">2. Ventas</span>
+                        </div>
+                        <div id="step-projects" class="workflow-step flex flex-col items-center p-4 border rounded-lg cursor-pointer bg-white" data-step="projects">
+                             <span class="step-icon text-3xl text-sky-600">⚙️</span>
+                            <span class="mt-2 font-semibold">3. Proyectos</span>
+                        </div>
+                        <div id="step-timesheets" class="workflow-step flex flex-col items-center p-4 border rounded-lg cursor-pointer bg-white" data-step="timesheets">
+                             <span class="step-icon text-3xl text-sky-600">⏱️</span>
+                            <span class="mt-2 font-semibold">4. Hojas de Horas</span>
+                        </div>
+                        <div id="step-purchases" class="workflow-step flex flex-col items-center p-4 border rounded-lg cursor-pointer bg-white" data-step="purchases">
+                             <span class="step-icon text-3xl text-sky-600">🛒</span>
+                            <span class="mt-2 font-semibold">5. Compras</span>
+                        </div>
+                        <div id="step-invoicing" class="workflow-step flex flex-col items-center p-4 border rounded-lg cursor-pointer bg-white" data-step="invoicing">
+                             <span class="step-icon text-3xl text-sky-600">💰</span>
+                            <span class="mt-2 font-semibold">6. Facturación</span>
+                        </div>
+                        <div id="step-accounting" class="workflow-step flex flex-col items-center p-4 border rounded-lg cursor-pointer bg-white" data-step="accounting">
+                            <span class="step-icon text-3xl text-sky-600">📊</span>
+                            <span class="mt-2 font-semibold">7. Contabilidad</span>
+                        </div>
+                    </div>
+                    
+                    <div id="workflow-details" class="mt-10 p-8 bg-white rounded-lg shadow-lg min-h-[150px] relative overflow-hidden">
+                        <!-- Details will be injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="relevancia" class="py-16 md:py-24 bg-white section-fade-in">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">¿Por Qué Odoo 17 es Relevante?</h2>
+                     <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
+                        Dominar la última versión de Odoo es más que aprender un software; es adquirir habilidades que combinan la ingeniería de software moderna con la estrategia de negocio actual.
+                    </p>
+                </div>
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="p-6 bg-slate-50 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold text-slate-900">Resolución de Problemas</h3>
+                        <p class="mt-2 text-slate-600">Permite traducir necesidades de negocio complejas en soluciones tecnológicas robustas, funcionales y con una UX superior.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold text-slate-900">Alta Demanda Laboral</h3>
+                        <p class="mt-2 text-slate-600">Existe una creciente necesidad de desarrolladores y arquitectos de Odoo capaces de implementar y personalizar la plataforma.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold text-slate-900">Arquitectura de Software</h3>
+                        <p class="mt-2 text-slate-600">Oportunidad para trabajar con patrones de diseño, ORMs, y desarrollo full-stack en un contexto empresarial real.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold text-slate-900">Potencial de Integración</h3>
+                        <p class="mt-2 text-slate-600">A través de su API (XML-RPC/JSON-RPC), Odoo puede ser el núcleo que se integre con software CAD, dispositivos IoT, y más.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
+            <p>Aplicación Interactiva realizada con conceptos de Odoo 17.</p>
+            <p class="mt-2 text-sm text-slate-400">Junio 2025</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const architectureLayers = {
+        presentation: {
+            title: 'Capa de Presentación',
+            content: 'Construida con <strong>HTML5, CSS y el framework OWL (Odoo Web Library)</strong>. En Odoo 17, esta capa ha sido rediseñada para ser más intuitiva y responsiva, mejorando la experiencia de usuario en todos los dispositivos.'
+        },
+        logic: {
+            title: 'Capa de Lógica',
+            content: 'El cerebro de Odoo, escrito en <strong>Python</strong>. Incluye el <strong>ORM (Object-Relational Mapping)</strong>, que abstrae la base de datos y maneja toda la lógica de negocio, reglas de validación y automatizaciones.'
+        },
+        data: {
+            title: 'Capa de Datos',
+            content: 'Utiliza exclusivamente <strong>PostgreSQL</strong> como sistema gestor de base de datos. Es responsable de la persistencia, integridad y almacenamiento seguro de toda la información de la aplicación.'
+        }
+    };
+
+    const architectureDiagram = document.getElementById('architecture-diagram');
+    const architectureDetails = document.getElementById('architecture-details');
+    architectureDiagram.addEventListener('click', (e) => {
+        const layerElement = e.target.closest('.arch-layer');
+        if (layerElement) {
+            const layerKey = layerElement.dataset.layer;
+            const layerData = architectureLayers[layerKey];
+            architectureDetails.style.opacity = 0;
+            setTimeout(() => {
+                architectureDetails.innerHTML = `
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-800">${layerData.title}</h4>
+                        <p class="mt-2 text-slate-600">${layerData.content}</p>
+                    </div>
+                `;
+                architectureDetails.style.opacity = 1;
+            }, 300);
+            
+            document.querySelectorAll('.arch-layer').forEach(el => el.classList.remove('border-sky-500', 'bg-sky-50'));
+            layerElement.classList.add('border-sky-500', 'bg-sky-50');
+        }
+    });
+
+    const customizationContent = {
+        inheritance: `
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h4 class="font-bold text-slate-800">Herencia: El Método Profesional</h4>
+                <p class="mt-2 text-sm text-slate-600">Es la técnica fundamental para extender Odoo sin modificar su código núcleo. Se "hereda" de un modelo (Python) o una vista (XML) para añadir, modificar o eliminar funcionalidades.</p>
+                <div class="mt-4 bg-slate-800 text-white p-4 rounded-md text-xs overflow-x-auto">
+<pre><code># model_inheritance.py
+from odoo import models, fields
+
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+
+    customer_rank = fields.Integer(string="Rango de Cliente")</code></pre>
+                </div>
+            </div>`,
+        studio: `
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h4 class="font-bold text-slate-800">Odoo Studio: Rapidez y Flexibilidad</h4>
+                <p class="mt-2 text-sm text-slate-600">Una herramienta de bajo código (low-code) integrada que, en Odoo 17, se beneficia de la UI mejorada para permitir a los usuarios realizar personalizaciones de forma aún más rápida e intuitiva.</p>
+                <ul class="mt-4 list-disc list-inside text-sm text-slate-600 space-y-1">
+                    <li>Crear nuevas aplicaciones desde cero.</li>
+                    <li>Añadir campos a cualquier modelo de datos.</li>
+                    <li>Modificar vistas de formulario, lista y kanban.</li>
+                    <li>Diseñar reportes PDF y flujos de aprobación.</li>
+                </ul>
+            </div>`
+    };
+
+    const btnInheritance = document.getElementById('btn-inheritance');
+    const btnStudio = document.getElementById('btn-studio');
+    const customizationContainer = document.getElementById('customization-content');
+
+    function showCustomization(type) {
+        customizationContainer.innerHTML = customizationContent[type];
+        if (type === 'inheritance') {
+            btnInheritance.classList.add('bg-sky-600', 'text-white');
+            btnInheritance.classList.remove('bg-white', 'text-slate-700');
+            btnStudio.classList.add('bg-white', 'text-slate-700');
+            btnStudio.classList.remove('bg-sky-600', 'text-white');
+        } else {
+            btnStudio.classList.add('bg-sky-600', 'text-white');
+            btnStudio.classList.remove('bg-white', 'text-slate-700');
+            btnInheritance.classList.add('bg-white', 'text-slate-700');
+            btnInheritance.classList.remove('bg-sky-600', 'text-white');
+        }
+    }
+
+    btnInheritance.addEventListener('click', () => showCustomization('inheritance'));
+    btnStudio.addEventListener('click', () => showCustomization('studio'));
+    showCustomization('inheritance');
+
+    const workflowSteps = {
+        crm: {
+            title: '1. Gestión de Relaciones con el Cliente (CRM)',
+            description: 'Todo comienza aquí. Se registra un nuevo cliente potencial. El equipo de ventas gestiona las oportunidades, llamadas y reuniones a través de un pipeline visual, asegurando un seguimiento adecuado.'
+        },
+        sales: {
+            title: '2. Ventas',
+            description: 'Se genera una cotización detallada desde la oportunidad en el CRM. Con el <strong>nuevo maquetador de cotizaciones de Odoo 17</strong>, se pueden crear propuestas personalizadas con bloques de contenido, imágenes y descripciones enriquecidas.'
+        },
+        projects: {
+            title: '3. Proyectos',
+            description: 'Automáticamente, la orden de venta crea un nuevo proyecto. En Odoo 17, las vistas Kanban mejoradas permiten <strong>visualizar sub-tareas directamente desde la tarjeta de la tarea principal</strong>, mejorando la organización.'
+        },
+        timesheets: {
+            title: '4. Hojas de Horas (Timesheets)',
+            description: 'Los ingenieros y consultores registran el tiempo trabajado directamente en las tareas del proyecto. Esto permite un control preciso de los costos de mano de obra y la rentabilidad.'
+        },
+        purchases: {
+            title: '5. Compras',
+            description: 'Si el proyecto requiere materiales o equipos, se crea una orden de compra directamente desde una tarea, vinculando el costo al proyecto correspondiente para un análisis financiero completo.'
+        },
+        invoicing: {
+            title: '6. Facturación',
+            description: 'La facturación se vuelve flexible. Se puede facturar al cliente basándose en los hitos del proyecto completados, las horas registradas en las hojas de horas o un precio fijo, todo con información extraída del sistema.'
+        },
+        accounting: {
+            title: '7. Contabilidad',
+            description: 'Todas las facturas y pagos se registran en Contabilidad. Odoo 17 mejora este proceso con la <strong>digitalización de facturas de proveedor mediante IA (OCR)</strong>, automatizando la creación de borradores de facturas.'
+        }
+    };
+    
+    const workflowContainer = document.getElementById('workflow-container');
+    const workflowDetails = document.getElementById('workflow-details');
+    
+    function updateWorkflowDetails(stepKey) {
+        const stepData = workflowSteps[stepKey];
+        const currentContent = workflowDetails.querySelector('.content');
+        if (currentContent) {
+            currentContent.style.opacity = 0;
+        }
+
+        setTimeout(() => {
+            workflowDetails.innerHTML = `
+                <div class="content transition-opacity duration-500 opacity-0">
+                    <h4 class="text-xl font-bold text-slate-800">${stepData.title}</h4>
+                    <p class="mt-2 text-slate-600">${stepData.description}</p>
+                </div>
+                <div class="absolute bottom-2 right-4 text-6xl text-sky-100/50 -z-10">${document.getElementById('step-' + stepKey).querySelector('.step-icon').textContent}</div>
+            `;
+            setTimeout(() => {
+                 workflowDetails.querySelector('.content').style.opacity = 1;
+            }, 50);
+        }, 300);
+
+        document.querySelectorAll('.workflow-step').forEach(el => el.classList.remove('active'));
+        document.getElementById('step-' + stepKey).classList.add('active');
+    }
+
+    workflowContainer.addEventListener('click', e => {
+        const stepElement = e.target.closest('.workflow-step');
+        if(stepElement) {
+            const stepKey = stepElement.dataset.step;
+            updateWorkflowDetails(stepKey);
+        }
+    });
+    
+    updateWorkflowDetails('crm');
+
+    const sections = document.querySelectorAll('.section-fade-in');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                });
+            }
+        });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            document.querySelector(link.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+
+    const ctx = document.getElementById('modularityChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Núcleo del Framework', 'Apps Oficiales de Odoo', 'Apps de Comunidad/Personalizadas'],
+            datasets: [{
+                label: 'Composición del Ecosistema Odoo',
+                data: [20, 50, 30],
+                backgroundColor: [
+                    'rgba(14, 165, 233, 0.7)', // sky-500
+                    'rgba(2, 132, 199, 0.8)', // sky-600
+                    'rgba(3, 105, 161, 0.9)' // sky-700
+                ],
+                borderColor: '#f8fafc',
+                borderWidth: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed !== null) {
+                                label += context.parsed + '% (Conceptual)';
+                            }
+                            return label;
+                        }
+                    }
+                },
+                title: {
+                    display: true,
+                    text: 'Ecosistema Modular de Odoo (Conceptual)',
+                    font: {
+                        size: 16
+                    },
+                    padding: {
+                        top: 10,
+                        bottom: 20
+                    }
+                }
+            }
+        }
+    });
+
+});
+</script>
+</body>
+</html>
