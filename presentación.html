@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Casos de Estudio en Odoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #3A4A6D;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        .kpi-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #FFC15E;
+        }
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            background-color: #F7B0C0;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -1.5px;
+        }
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+        .timeline-container.left {
+            left: 0;
+        }
+        .timeline-container.right {
+            left: 50%;
+        }
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: white;
+            border: 4px solid #FFC15E;
+            top: 28px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        .timeline-container.right::after {
+            left: -10px;
+        }
+        .timeline-container.left::after {
+            right: -10px;
+        }
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+        }
+        @media screen and (max-width: 768px) {
+            .timeline::after {
+                left: 20px;
+            }
+            .timeline-container {
+                width: 100%;
+                padding-left: 60px;
+                padding-right: 15px;
+            }
+            .timeline-container.right {
+                left: 0%;
+            }
+            .timeline-container.left::after, .timeline-container.right::after {
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <header class="bg-white shadow-sm">
+        <div class="max-w-5xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-[#3A4A6D]">Casos de Estudio: Odoo</h1>
+            <p class="mt-4 text-lg text-gray-600">Análisis de Desafíos, Soluciones y Resultados en Proyectos Reales.</p>
+            <div class="mt-8">
+                <a href="index.html" class="inline-block bg-[#3A4A6D] text-white font-bold py-3 px-5 rounded-lg hover:bg-opacity-90 transition-opacity text-base">
+                    &larr; Volver a la Visión de Odoo 17
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-16 px-4">
+        
+        <section id="que-es" class="max-w-5xl mx-auto mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12">¿Qué es? El Contexto de los Desafíos</h2>
+            <p class="text-center text-lg text-gray-600 max-w-3xl mx-auto">
+                Esta infografía presenta el análisis y la resolución de dos escenarios técnicos complejos en el ecosistema de Odoo. Cada proyecto representa un desafío común que requiere una estrategia de ingeniería de software precisa para garantizar el éxito del cliente y la integridad del sistema.
+            </p>
+        </section>
+
+        <section id="proyectos" class="max-w-5xl mx-auto mb-20">
+            <h2 class="text-3xl font-bold text-center mb-12">¿Qué proyectos se realizaron?</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-[#3A4A6D] mb-4">Proyecto 1: Migración de Versión</h3>
+                    <p class="text-gray-700">
+                        Se abordó la migración completa de una instancia de Odoo de la <strong class="text-[#7B6D8D]">versión 11 a la versión 17</strong>. El reto principal consistía en asegurar la integridad de los datos, la compatibilidad de los módulos personalizados y una transición sin interrupciones para el usuario final.
+                    </p>
+                </div>
+                <div class="bg-white p-8 rounded-lg shadow-md">
+                    <h3 class="text-2xl font-bold text-[#3A4A6D] mb-4">Proyecto 2: Optimización de Rendimiento</h3>
+                    <p class="text-gray-700">
+                        Se intervino en una implementación existente que presentaba <strong class="text-[#7B6D8D]">retrasos significativos y tiempos de carga inaceptables</strong>. El objetivo era diagnosticar la causa raíz del problema de rendimiento y aplicar soluciones efectivas para restaurar la agilidad del sistema.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="soluciones" class="max-w-5xl mx-auto mb-20">
+            <h2 class="text-3xl font-bold text-center mb-16">¿Qué soluciones se dieron?</h2>
+            
+            <div class="mb-16 bg-white p-8 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold text-center text-[#3A4A6D] mb-8">Solución Proyecto 1: Hoja de Ruta de Migración</h3>
+                <div class="timeline">
+                    <div class="timeline-container left">
+                        <div class="timeline-content">
+                            <h4 class="font-bold">Fase 1: Análisis y Planificación</h4>
+                            <p class="text-sm text-gray-600">Auditoría de módulos personalizados. Mapeo de campos y modelos obsoletos vs. nuevos. Definición del alcance y cronograma detallado.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-container right">
+                        <div class="timeline-content">
+                            <h4 class="font-bold">Fase 2: Ejecución Técnica</h4>
+                            <p class="text-sm text-gray-600">Refactorización de código personalizado para compatibilidad con la nueva versión</p>
+                        </div>
+                    </div>
+                     <div class="timeline-container left">
+                        <div class="timeline-content">
+                            <h4 class="font-bold">Fase 3: Migración y Validación de Datos</h4>
+                            <p class="text-sm text-gray-600">Ejecución de la migración en un entorno de pruebas. Scripts de validación para comparar datos de origen y destino, asegurando la integridad.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-container right">
+                        <div class="timeline-content">
+                            <h4 class="font-bold">Fase 4: Pruebas UAT y Go-Live</h4>
+                            <p class="text-sm text-gray-600">Pruebas de Aceptación de Usuario (UAT) con personal clave. Plan de Go-Live detallado para la transición final en producción con mínimo downtime.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-lg shadow-lg">
+                 <h3 class="text-2xl font-bold text-center text-[#3A4A6D] mb-8">Solución Proyecto 2: Diagnóstico y Optimización de Rendimiento</h3>
+                <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">La solución se centró en la optimización del backend. El análisis reveló consultas ineficientes y vistas sobrecargadas. Se implementaron índices en la base de datos y se optimizó el ORM.</p>
+                <div class="chart-container">
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="resultados-kpi" class="max-w-5xl mx-auto mb-20">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="kpi-card">
+                    <span class="text-5xl font-extrabold text-[#FFC15E]">80%</span>
+                    <p class="mt-2 text-lg font-semibold">Reducción en Tiempos de Carga</p>
+                </div>
+                <div class="kpi-card">
+                    <span class="text-5xl font-extrabold text-[#FFC15E]">99.8%</span>
+                    <p class="mt-2 text-lg font-semibold">Integridad de Datos Post-Migración</p>
+                </div>
+                <div class="kpi-card">
+                    <span class="text-5xl font-extrabold text-[#FFC15E]">0</span>
+                    <p class="mt-2 text-lg font-semibold">Funcionalidades Críticas Perdidas</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusiones" class="max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-center mb-12">Conclusiones</h2>
+            <div class="bg-white p-8 rounded-lg shadow-md space-y-6">
+                <div>
+                    <h4 class="text-xl font-bold">La planificación es clave en las migraciones.</h4>
+                    <p class="text-gray-700 mt-2">Una fase de análisis y mapeo exhaustiva es el factor más crítico para el éxito de una migración de Odoo, minimizando riesgos y sorpresas durante la ejecución.</p>
+                </div>
+                <hr>
+                <div>
+                    <h4 class="text-xl font-bold">El rendimiento es un problema de backend, no solo de hardware.</h4>
+                    <p class="text-gray-700 mt-2">A menudo, los problemas de lentitud no se resuelven aumentando los recursos del servidor, sino a través de una optimización cuidadosa de las consultas a la base de datos y la renderización de las vistas.</p>
+                </div>
+                 <hr>
+                 <div>
+                    <h4 class="text-xl font-bold">El testing continuo valida la calidad.</h4>
+                    <p class="text-gray-700 mt-2">Involucrar al cliente en pruebas UAT y tener scripts de validación automáticos son prácticas indispensables para asegurar que la solución final cumple con las expectativas y funciona correctamente.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="mt-20 py-8 bg-[#3A4A6D] text-white">
+        <div class="max-w-5xl mx-auto text-center">
+            <p>&copy; 2025 Infografía de Casos de Estudio en Odoo</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Carga de Vistas de kanban', 'Generación de Reportes Complejos'],
+                    datasets: [
+                        {
+                            label: 'Antes de Optimización (segundos)',
+                            data: [50.5, 60.3],
+                            backgroundColor: '#F7B0C0',
+                            borderColor: '#F7B0C0',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Después de Optimización (segundos)',
+                            data: [10.2, 15.1],
+                            backgroundColor: '#FFC15E',
+                            borderColor: '#FFC15E'  ,
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Tiempo de Carga (segundos)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Comparativa de Rendimiento del Sistema',
+                            font: {
+                                size: 18
+                            },
+                            padding: {
+                                top: 10,
+                                bottom: 30
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                      return label.join(' ');
+                                    } else {
+                                      return label;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

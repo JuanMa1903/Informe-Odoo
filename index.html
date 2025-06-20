@@ -9,10 +9,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Slate & Sky Blue -->
-    <!-- Application Structure Plan: A thematic, single-page application with a sticky top navigation bar. The structure guides the user from the 'what' and 'how' of Odoo (Concept & Toolkit), to a practical demonstration (Interactive Use Case), and finally to the 'why' (Relevance). This non-linear structure, accessible via nav links, allows users to explore based on their interests, which is more engaging than a static slide-by-slide presentation. The interactive workflow is the centerpiece, designed to turn a text-based process into a dynamic, explorable story. -->
-    <!-- Visualization & Content Choices: The presentation's textual content is transformed into interactive components. The 3-tier architecture is a clickable diagram (HTML/CSS) to reveal details on demand. The development stack is shown as interactive cards. The core of the SPA is the Use Case, an HTML/CSS/JS-powered interactive process flow where clicking a step updates a details panel, making the workflow tangible. A conceptual Donut chart (Chart.js) is used to visually represent Odoo's modularity, adding a data visualization element. This approach prioritizes user engagement and understanding over static text. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -72,6 +68,7 @@
                         <a href="#herramientas" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Herramientas</a>
                         <a href="#uso" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Caso de Uso</a>
                         <a href="#relevancia" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Relevancia</a>
+                        <a href="presentación.html" class="nav-link px-3 py-2 rounded-md text-sm font-bold text-sky-600">Casos de Estudio</a>
                     </div>
                 </div>
             </div>
@@ -181,8 +178,7 @@
                         <button id="btn-studio" class="flex-1 p-2 rounded-md font-semibold bg-white text-slate-700">Odoo Studio (Low-Code)</button>
                      </div>
                      <div id="customization-content" class="mt-6 max-w-2xl mx-auto">
-                        <!-- Content will be injected by JS -->
-                     </div>
+                        </div>
                 </div>
 
             </div>
@@ -230,8 +226,7 @@
                     </div>
                     
                     <div id="workflow-details" class="mt-10 p-8 bg-white rounded-lg shadow-lg min-h-[150px] relative overflow-hidden">
-                        <!-- Details will be injected by JS -->
-                    </div>
+                        </div>
                 </div>
             </div>
         </section>
@@ -435,7 +430,7 @@ class ResPartner(models.Model):
     updateWorkflowDetails('crm');
 
     const sections = document.querySelectorAll('.section-fade-in');
-    const navLinks = document.querySelectorAll('.nav-link');
+    const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
