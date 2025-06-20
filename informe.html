@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe de Prácticas Profesionales | Juan Diego Marin Soler</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .scroll-margin {
+            scroll-margin-top: 80px;
+        }
+        .section-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+        .section-card:hover {
+            transform: translateY(-5px);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .accordion-button.active + .accordion-content {
+            max-height: 1000px;
+        }
+        .tab-button.active {
+            border-bottom-color: #3b82f6; /* blue-500 */
+            color: #3b82f6;
+        }
+        .accordion-button .icon-transform {
+            transition: transform 0.3s ease;
+        }
+        .accordion-button.active .icon-transform {
+            transform: rotate(180deg);
+        }
+
+        /* --- Dark Mode Styles --- */
+        html.dark body {
+            background-color: #030712; /* gray-950 */
+            color: #d1d5db; /* gray-300 */
+        }
+        html.dark header {
+            background-color: rgba(17, 24, 39, 0.8); /* gray-900 with opacity */
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+        }
+        html.dark .section-card {
+            background-color: #111827; /* gray-900 */
+            border: 1px solid #374151; /* gray-700 */
+        }
+        html.dark .section-card:hover {
+             box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.3), 0 4px 6px -4px rgb(0 0 0 / 0.2);
+        }
+        html.dark #mobile-menu {
+             background-color: #111827; /* gray-900 */
+        }
+        html.dark .text-gray-900 { color: #f9fafb; /* gray-50 */ }
+        html.dark .text-gray-800 { color: #f3f4f6; /* gray-100 */ }
+        html.dark .text-gray-700 { color: #d1d5db; /* gray-300 */ }
+        html.dark .text-gray-600 { color: #9ca3af; /* gray-400 */ }
+        html.dark .text-gray-500 { color: #6b7280; /* gray-500 */ }
+
+        html.dark .text-blue-600 { color: #60a5fa; /* blue-400 */ }
+        html.dark .text-blue-500 { color: #3b82f6; /* blue-500 */ }
+        
+        html.dark .bg-blue-600 { background-color: #1e40af; /* blue-800 */ }
+        html.dark .text-blue-100 { color: #dbeafe; /* blue-200 */ }
+        
+        html.dark .bg-gray-100 { background-color: #1f2937; /* gray-800 */ }
+        html.dark .hover\:bg-gray-200:hover { background-color: #374151; /* gray-700 */ }
+        html.dark .border-gray-200 { border-color: #374151; /* gray-700 */ }
+        
+        html.dark .tab-button.active {
+            border-bottom-color: #60a5fa; /* blue-400 */
+            color: #60a5fa;
+        }
+        html.dark .tab-button {
+             color: #9ca3af; /* gray-400 */
+        }
+         html.dark .tab-button:hover {
+             color: #d1d5db; /* gray-300 */
+             border-color: #4b5563; /* gray-600 */
+         }
+        html.dark .accordion-content {
+            border-color: #60a5fa; /* blue-400 */
+        }
+        html.dark footer {
+             background-color: #1f2937; /* gray-800 */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header -->
+    <header id="main-header" class="bg-white/80 backdrop-blur-lg shadow-md fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-xl md:text-2xl font-bold text-gray-900">Juan Diego Marin Soler</h1>
+                <p class="text-sm text-blue-600 font-medium">Informe de Prácticas en IAS Software S.A.S.</p>
+            </div>
+            <div class="flex items-center">
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#presentacion" class="text-gray-600 hover:text-blue-600 transition">Presentación</a>
+                    <a href="#objetivos" class="text-gray-600 hover:text-blue-600 transition">Objetivos</a>
+                    <a href="#proyectos" class="text-gray-600 hover:text-blue-600 transition">Proyectos</a>
+                    <a href="#tecnologias" class="text-gray-600 hover:text-blue-600 transition">Tecnologías</a>
+                    <a href="#conclusiones" class="text-gray-600 hover:text-blue-600 transition">Conclusiones</a>
+                </nav>
+                <a href="index.html" class="nav-link px-3 py-2 rounded-md text-sm font-bold text-sky-600">Vision de Odoo</a>
+                <button id="theme-toggle" class="ml-4 p-2 rounded-full text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <svg id="theme-icon-light" class="h-5 w-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg id="theme-icon-dark" class="h-5 w-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+                <button id="mobile-menu-button" class="md:hidden ml-2 p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#presentacion" class="block py-2 text-gray-600 hover:text-blue-600 transition">Presentación</a>
+            <a href="#objetivos" class="block py-2 text-gray-600 hover:text-blue-600 transition">Objetivos</a>
+            <a href="#proyectos" class="block py-2 text-gray-600 hover:text-blue-600 transition">Proyectos</a>
+            <a href="#tecnologias" class="block py-2 text-gray-600 hover:text-blue-600 transition">Tecnologías</a>
+            <a href="#conclusiones" class="block py-2 text-gray-600 hover:text-blue-600 transition">Conclusiones</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 pt-28 pb-16">
+
+        <!-- Presentación Section -->
+        <section id="presentacion" class="scroll-margin mb-16">
+            <div class="section-card p-8 shadow-lg">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4 flex items-center">
+                    <svg class="w-8 h-8 mr-3 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Presentación
+                </h2>
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    Durante cuatro meses, realicé mis prácticas profesionales en <strong class="font-semibold text-gray-700">IAS Ingeniería, Aplicaciones y Software S.A.S.</strong>, una empresa líder en soluciones tecnológicas basadas en el ERP Odoo. Mi labor se centró en dos proyectos clave: la migración y optimización del sistema Odoo para el cliente Conalquipo (de la v11 a la v17) y la mejora técnica del ERP para un cliente multiempresa. Estas intervenciones resultaron en una mejora sustancial del rendimiento del sistema, reduciendo tiempos de ejecución de tareas críticas de 6 minutos a menos de 1 minuto.
+                </p>
+            </div>
+        </section>
+
+        <!-- Objetivos Section -->
+        <section id="objetivos" class="scroll-margin mb-16">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">Objetivos y Funciones</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="section-card p-6 shadow-md">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3 flex items-center">
+                        <svg class="w-6 h-6 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        Objetivo General
+                    </h3>
+                    <p class="text-gray-600">Mejorar significativamente los procesos operativos críticos mediante la migración efectiva y personalización del sistema ERP Odoo para clientes específicos.</p>
+                </div>
+                <div class="section-card p-6 shadow-md">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3 flex items-center">
+                        <svg class="w-6 h-6 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 2l4 4-4 4M7 22l-4-4 4-4"></path></svg>
+                        Funciones Desempeñadas
+                    </h3>
+                    <ul class="list-disc list-inside text-gray-600 space-y-2">
+                        <li>Desarrollo y adaptación de módulos personalizados en Odoo.</li>
+                        <li>Análisis de requerimientos técnicos y funcionales.</li>
+                        <li>Revisión, depuración y optimización constante del código fuente.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Proyectos Section -->
+        <section id="proyectos" class="scroll-margin mb-16">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-2">Proyectos Desarrollados</h2>
+            <p class="text-center text-gray-500 mb-8">Análisis y desarrollo de soluciones a medida.</p>
+
+            <div class="w-full max-w-4xl mx-auto">
+                <!-- Tabs -->
+                <div class="border-b border-gray-200 mb-6">
+                    <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                        <button class="tab-button active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg" data-target="proyecto1">
+                            Proyecto 1: Migración Odoo 17
+                        </button>
+                        <button class="tab-button whitespace-nowrap py-4 px-1 border-b-2 border-transparent font-medium text-lg text-gray-500 hover:text-gray-700 hover:border-gray-300" data-target="proyecto2">
+                            Proyecto 2: Optimización CRM
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Tab Content -->
+                <div id="tab-content">
+                    <div id="proyecto1" class="tab-pane active">
+                        <div class="section-card p-8 shadow-md">
+                            <h3 class="text-2xl font-semibold text-gray-900 mb-4">Implementación de mejoras en Odoo 17 para Conalquipo</h3>
+                            <p class="text-gray-600 mb-6">El proyecto consistió en la migración del ERP de Odoo 11 a Odoo 17, optimizando procesos y desarrollando personalizaciones clave para el módulo de reparaciones y gestión de inventario.</p>
+                            
+                            <div class="space-y-4">
+                                <!-- Accordion Item -->
+                                <div>
+                                    <button class="accordion-button w-full flex justify-between items-center text-left py-3 px-4 bg-gray-100 hover:bg-gray-200 rounded-md transition focus:outline-none">
+                                        <span class="font-semibold text-gray-800">Arquitectura y Diseño</span>
+                                        <svg class="w-5 h-5 icon-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </button>
+                                    <div class="accordion-content px-4 py-2 border-l-2 border-blue-500 bg-white">
+                                        <p class="text-gray-600 mt-2">Se propuso una arquitectura optimizada para maximizar la eficiencia y escalabilidad, con un API Gateway central, módulos desacoplados (Renta, Inventario, Reparación) y un flujo de datos coherente que automatiza la creación de órdenes de reparación al retornar un equipo alquilado.</p>
+                                    </div>
+                                </div>
+                                <!-- Accordion Item -->
+                                <div>
+                                    <button class="accordion-button w-full flex justify-between items-center text-left py-3 px-4 bg-gray-100 hover:bg-gray-200 rounded-md transition focus:outline-none">
+                                        <span class="font-semibold text-gray-800">Desarrollo y Pruebas</span>
+                                        <svg class="w-5 h-5 icon-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </button>
+                                    <div class="accordion-content px-4 py-2 border-l-2 border-blue-500 bg-white">
+                                        <p class="text-gray-600 mt-2">El desarrollo siguió buenas prácticas como herencia en lugar de sobreescritura y código modular. Se implementaron pruebas unitarias y de integración continuas con `unittest` en Odoo.sh para validar cada funcionalidad, asegurando la integridad del sistema y cumpliendo con el 100% de los requerimientos funcionales críticos.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="proyecto2" class="tab-pane hidden">
+                        <div class="section-card p-8 shadow-md">
+                            <h3 class="text-2xl font-semibold text-gray-900 mb-4">Optimización del módulo CRM para Cliente Multiempresa</h3>
+                            <p class="text-gray-600 mb-6">Se detectaron y solucionaron retardos significativos en el módulo CRM (crm.lead) al generar cotizaciones, causados por un procesamiento ineficiente y carga lenta de etiquetas.</p>
+
+                            <div class="space-y-4">
+                                <!-- Accordion Item -->
+                                <div>
+                                    <button class="accordion-button w-full flex justify-between items-center text-left py-3 px-4 bg-gray-100 hover:bg-gray-200 rounded-md transition focus:outline-none">
+                                        <span class="font-semibold text-gray-800">Identificación y Solución</span>
+                                        <svg class="w-5 h-5 icon-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </button>
+                                    <div class="accordion-content px-4 py-2 border-l-2 border-blue-500 bg-white">
+                                        <p class="text-gray-600 mt-2">La solución se centró en la refactorización y modularización de funciones críticas como `compute_certificates_regulates_ids` y en la eliminación de la carga innecesaria de etiquetas (`tag_ids`) de la vista Kanban. Esto se logró modificando la vista XML mediante herencia, lo que redujo drásticamente la carga de datos y los tiempos de espera.</p>
+                                    </div>
+                                </div>
+                                <!-- Accordion Item -->
+                                <div>
+                                    <button class="accordion-button w-full flex justify-between items-center text-left py-3 px-4 bg-gray-100 hover:bg-gray-200 rounded-md transition focus:outline-none">
+                                        <span class="font-semibold text-gray-800">Resultados</span>
+                                        <svg class="w-5 h-5 icon-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </button>
+                                    <div class="accordion-content px-4 py-2 border-l-2 border-blue-500 bg-white">
+                                        <p class="text-gray-600 mt-2">Las optimizaciones resultaron en una mejora comprobada del desempeño del sistema. Se validó el correcto funcionamiento y la reducción de la carga computacional mediante logging y pruebas funcionales, logrando una experiencia de usuario mucho más fluida y eficiente.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tecnologías Section -->
+        <section id="tecnologias" class="scroll-margin mb-16">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-8">Tecnologías y Herramientas</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
+                <div class="section-card p-6 flex flex-col items-center justify-center shadow-sm"><img src="https://placehold.co/64x64/3178C6/FFFFFF?text=Py" alt="Python Logo" class="h-12 w-12 mb-3"><span class="font-semibold text-gray-700">Python</span></div>
+                <div class="section-card p-6 flex flex-col items-center justify-center shadow-sm"><img src="https://placehold.co/64x64/7A14F4/FFFFFF?text=Odoo" alt="Odoo Logo" class="h-12 w-12 mb-3"><span class="font-semibold text-gray-700">Odoo</span></div>
+                <div class="section-card p-6 flex flex-col items-center justify-center shadow-sm"><img src="https://placehold.co/64x64/4694E8/FFFFFF?text=PgSQL" alt="PostgreSQL Logo" class="h-12 w-12 mb-3"><span class="font-semibold text-gray-700">PostgreSQL</span></div>
+                <div class="section-card p-6 flex flex-col items-center justify-center shadow-sm"><img src="https://placehold.co/64x64/2496ED/FFFFFF?text=Docker" alt="Docker Logo" class="h-12 w-12 mb-3"><span class="font-semibold text-gray-700">Docker</span></div>
+                <div class="section-card p-6 flex flex-col items-center justify-center shadow-sm"><img src="https://placehold.co/64x64/F05032/FFFFFF?text=Git" alt="Git Logo" class="h-12 w-12 mb-3"><span class="font-semibold text-gray-700">Git & GitHub</span></div>
+                <div class="section-card p-6 flex flex-col items-center justify-center shadow-sm"><img src="https://placehold.co/64x64/0078D4/FFFFFF?text=Azure" alt="Azure Boards Logo" class="h-12 w-12 mb-3"><span class="font-semibold text-gray-700">Azure Boards</span></div>
+                <div class="section-card p-6 flex flex-col items-center justify-center shadow-sm"><img src="https://placehold.co/64x64/E34F26/FFFFFF?text=HTML" alt="HTML5 Logo" class="h-12 w-12 mb-3"><span class="font-semibold text-gray-700">HTML5</span></div>
+                <div class="section-card p-6 flex flex-col items-center justify-center shadow-sm"><img src="https://placehold.co/64x64/1572B6/FFFFFF?text=CSS" alt="CSS3 Logo" class="h-12 w-12 mb-3"><span class="font-semibold text-gray-700">CSS3</span></div>
+                <div class="section-card p-6 flex flex-col items-center justify-center shadow-sm"><img src="https://placehold.co/64x64/F7DF1E/000000?text=JS" alt="JavaScript Logo" class="h-12 w-12 mb-3"><span class="font-semibold text-gray-700">JavaScript</span></div>
+                <div class="section-card p-6 flex flex-col items-center justify-center shadow-sm"><img src="https://placehold.co/64x64/563D7C/FFFFFF?text=DB" alt="DBeaver Logo" class="h-12 w-12 mb-3"><span class="font-semibold text-gray-700">DBeaver</span></div>
+            </div>
+        </section>
+
+        <!-- Conclusiones Section -->
+        <section id="conclusiones" class="scroll-margin">
+            <div class="section-card p-8 bg-blue-600 text-white shadow-lg">
+                <h2 class="text-3xl font-bold mb-4 flex items-center">
+                    <svg class="w-8 h-8 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Conclusiones y Líneas Futuras
+                </h2>
+                <p class="text-lg leading-relaxed mb-4">
+                    La práctica profesional demostró que una planificación adecuada y el uso de metodologías ágiles son clave para abordar retos técnicos complejos. La automatización de procesos impacta directamente en la eficiencia operativa y la satisfacción del cliente. La experiencia fortaleció mis competencias técnicas en desarrollo de software y habilidades blandas como la comunicación y gestión de proyectos.
+                </p>
+                <h4 class="text-xl font-semibold mb-2">Líneas Futuras:</h4>
+                <ul class="list-disc list-inside space-y-1 text-blue-100">
+                    <li>Explorar oportunidades de automatización avanzada en otros módulos.</li>
+                    <li>Establecer programas de formación técnica en Odoo para los clientes.</li>
+                    <li>Integrar módulos de Business Intelligence (BI) y análisis predictivo.</li>
+                    <li>Continuar con la optimización y monitoreo proactivo del rendimiento del sistema.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="container mx-auto px-6 py-4 text-center">
+            <p>&copy; 2025 Juan Diego Marin Soler. Página generada a partir de informe de prácticas.</p>
+            <p class="text-sm text-gray-400">Universidad del Magdalena - Facultad de Ingeniería</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const htmlElement = document.documentElement;
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const lightIcon = document.getElementById('theme-icon-light');
+            const darkIcon = document.getElementById('theme-icon-dark');
+
+            // Function to set the theme
+            function setTheme(theme) {
+                localStorage.setItem('theme', theme);
+                if (theme === 'dark') {
+                    htmlElement.classList.add('dark');
+                    lightIcon.classList.add('hidden');
+                    darkIcon.classList.remove('hidden');
+                } else {
+                    htmlElement.classList.remove('dark');
+                    darkIcon.classList.add('hidden');
+                    lightIcon.classList.remove('hidden');
+                }
+            }
+            
+            // Set initial theme on page load
+            const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            setTheme(savedTheme);
+
+            // Theme toggle button event
+            themeToggleBtn.addEventListener('click', () => {
+                const currentTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
+                setTheme(currentTheme);
+            });
+
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement){
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Header shrink on scroll
+            const header = document.getElementById('main-header');
+            window.addEventListener('scroll', () => {
+                header.classList.toggle('py-2', window.scrollY > 50);
+                header.classList.toggle('py-4', window.scrollY <= 50);
+            });
+
+            // Accordion functionality
+            document.querySelectorAll('.accordion-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    const content = button.nextElementSibling;
+                    const isActive = button.classList.contains('active');
+                    
+                    // Close other accordions in the same group if you want that behavior
+                    // button.closest('.space-y-4').querySelectorAll('.accordion-button').forEach(b => {
+                    //    if (b !== button) {
+                    //       b.classList.remove('active');
+                    //       b.nextElementSibling.style.maxHeight = null;
+                    //    }
+                    // });
+
+                    button.classList.toggle('active');
+                    content.style.maxHeight = isActive ? null : content.scrollHeight + "px";
+                });
+            });
+
+            // Tabs functionality
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabPanes.forEach(pane => pane.classList.add('hidden', 'active'));
+
+                    button.classList.add('active');
+                    const targetPaneId = button.getAttribute('data-target');
+                    const targetPane = document.getElementById(targetPaneId);
+                    if(targetPane) {
+                        targetPane.classList.remove('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

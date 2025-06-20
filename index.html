@@ -120,15 +120,14 @@
             background-color: #475569; /* slate-600 */
         }
         html.dark footer.bg-slate-800 {
-            background-color: #e2e8f0; /* slate-200 */
+            background-color: #0f172a;
         }
         html.dark footer.text-white {
-            color: #1e293b; /* slate-800 */
+            color: #e2e8f0; /* slate-200 */
         }
         html.dark footer .text-slate-400 {
-            color: #475569; /* slate-600 */
+            color: #94a3b8; /* slate-400 */
         }
-
     </style>
 </head>
 <body class="text-slate-700">
@@ -147,6 +146,7 @@
                             <a href="#uso" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Caso de Uso</a>
                             <a href="#relevancia" class="nav-link px-3 py-2 rounded-md text-sm font-medium">Relevancia</a>
                             <a href="presentación.html" class="nav-link px-3 py-2 rounded-md text-sm font-bold text-sky-600">Casos de Estudio</a>
+                            <a href="informe.html" class="nav-link px-3 py-2 rounded-md text-sm font-bold text-sky-600 hover:text-sky-500">Informe</a>
                         </div>
                     </div>
                     <button id="theme-toggle" class="ml-4 p-2 rounded-full text-slate-800 focus:outline-none">
@@ -198,9 +198,9 @@
                             </div>
                         </div>
                     </div>
-                     <div class="chart-container">
+                    <div class="chart-container">
                         <canvas id="modularityChart"></canvas>
-                     </div>
+                    </div>
                 </div>
 
                 <div class="mt-20">
@@ -255,13 +255,13 @@
                 </div>
 
                 <div class="mt-20">
-                     <h3 class="text-2xl font-bold text-slate-800 text-center">El Arte de la Personalización</h3>
-                     <div class="max-w-2xl mx-auto mt-8 bg-slate-100 rounded-lg p-2 flex space-x-2">
+                    <h3 class="text-2xl font-bold text-slate-800 text-center">El Arte de la Personalización</h3>
+                    <div class="max-w-2xl mx-auto mt-8 bg-slate-100 rounded-lg p-2 flex space-x-2">
                         <button id="btn-inheritance" class="flex-1 p-2 rounded-md font-semibold bg-sky-600 text-white">Herencia (Código)</button>
                         <button id="btn-studio" class="flex-1 p-2 rounded-md font-semibold bg-white text-slate-700">Odoo Studio (Low-Code)</button>
-                     </div>
-                     <div id="customization-content" class="mt-6 max-w-2xl mx-auto">
-                        </div>
+                    </div>
+                    <div id="customization-content" class="mt-6 max-w-2xl mx-auto">
+                    </div>
                 </div>
 
             </div>
@@ -287,19 +287,19 @@
                             <span class="mt-2 font-semibold">2. Ventas</span>
                         </div>
                         <div id="step-projects" class="workflow-step flex flex-col items-center p-4 border rounded-lg cursor-pointer bg-white" data-step="projects">
-                             <span class="step-icon text-3xl text-sky-600">⚙️</span>
+                            <span class="step-icon text-3xl text-sky-600">⚙️</span>
                             <span class="mt-2 font-semibold">3. Proyectos</span>
                         </div>
                         <div id="step-timesheets" class="workflow-step flex flex-col items-center p-4 border rounded-lg cursor-pointer bg-white" data-step="timesheets">
-                             <span class="step-icon text-3xl text-sky-600">⏱️</span>
+                            <span class="step-icon text-3xl text-sky-600">⏱️</span>
                             <span class="mt-2 font-semibold">4. Hojas de Horas</span>
                         </div>
                         <div id="step-purchases" class="workflow-step flex flex-col items-center p-4 border rounded-lg cursor-pointer bg-white" data-step="purchases">
-                             <span class="step-icon text-3xl text-sky-600">🛒</span>
+                            <span class="step-icon text-3xl text-sky-600">🛒</span>
                             <span class="mt-2 font-semibold">5. Compras</span>
                         </div>
                         <div id="step-invoicing" class="workflow-step flex flex-col items-center p-4 border rounded-lg cursor-pointer bg-white" data-step="invoicing">
-                             <span class="step-icon text-3xl text-sky-600">💰</span>
+                            <span class="step-icon text-3xl text-sky-600">💰</span>
                             <span class="mt-2 font-semibold">6. Facturación</span>
                         </div>
                         <div id="step-accounting" class="workflow-step flex flex-col items-center p-4 border rounded-lg cursor-pointer bg-white" data-step="accounting">
@@ -309,7 +309,7 @@
                     </div>
                     
                     <div id="workflow-details" class="mt-10 p-8 bg-white rounded-lg shadow-lg min-h-[150px] relative overflow-hidden">
-                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -318,7 +318,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center">
                     <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">¿Por Qué Odoo 17 es Relevante?</h2>
-                     <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
+                    <p class="mt-4 text-lg text-slate-600 max-w-3xl mx-auto">
                         Dominar la última versión de Odoo es más que aprender un software; es adquirir habilidades que combinan la ingeniería de software moderna con la estrategia de negocio actual.
                     </p>
                 </div>
@@ -375,9 +375,13 @@ document.addEventListener('DOMContentLoaded', () => {
             darkIcon.classList.add('hidden');
         }
         // Vuelve a dibujar el gráfico con los colores del nuevo tema
-        renderModularityChart();
+        if (typeof Chart !== 'undefined' && document.getElementById('modularityChart')) {
+            renderModularityChart();
+        }
         // Actualiza los estilos de los botones de personalización
-        showCustomization(activeCustomizationType);
+        if(document.getElementById('customization-content')){
+            showCustomization(activeCustomizationType);
+        }
     }
 
     // Event listener para el botón
@@ -389,8 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cargar el tema guardado o el preferido por el sistema al iniciar la página
     const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     
-
-    // --- Lógica Original del Gráfico (Integrada con el modo oscuro) ---
+    // --- Lógica del Gráfico ---
     function renderModularityChart() {
         if (modularityChart) {
             modularityChart.destroy();
@@ -447,7 +450,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Lógica Original de la Arquitectura ---
+    // --- Lógica de la Arquitectura ---
     const architectureLayers = {
         presentation: {
             title: 'Capa de Presentación',
@@ -464,27 +467,29 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const architectureDiagram = document.getElementById('architecture-diagram');
     const architectureDetails = document.getElementById('architecture-details');
-    architectureDiagram.addEventListener('click', (e) => {
-        const layerElement = e.target.closest('.arch-layer');
-        if (layerElement) {
-            const layerKey = layerElement.dataset.layer;
-            const layerData = architectureLayers[layerKey];
-            architectureDetails.style.opacity = 0;
-            setTimeout(() => {
-                architectureDetails.innerHTML = `
-                    <div>
-                        <h4 class="text-xl font-bold text-slate-800">${layerData.title}</h4>
-                        <p class="mt-2 text-slate-600">${layerData.content}</p>
-                    </div>
-                `;
-                architectureDetails.style.opacity = 1;
-            }, 300);
-            document.querySelectorAll('.arch-layer').forEach(el => el.classList.remove('border-sky-500', 'bg-sky-50'));
-            layerElement.classList.add('border-sky-500', 'bg-sky-50');
-        }
-    });
+    if (architectureDiagram) {
+        architectureDiagram.addEventListener('click', (e) => {
+            const layerElement = e.target.closest('.arch-layer');
+            if (layerElement) {
+                const layerKey = layerElement.dataset.layer;
+                const layerData = architectureLayers[layerKey];
+                architectureDetails.style.opacity = 0;
+                setTimeout(() => {
+                    architectureDetails.innerHTML = `
+                        <div>
+                            <h4 class="text-xl font-bold text-slate-800">${layerData.title}</h4>
+                            <p class="mt-2 text-slate-600">${layerData.content}</p>
+                        </div>
+                    `;
+                    architectureDetails.style.opacity = 1;
+                }, 300);
+                document.querySelectorAll('.arch-layer').forEach(el => el.classList.remove('border-sky-500', 'bg-sky-50'));
+                layerElement.classList.add('border-sky-500', 'bg-sky-50');
+            }
+        });
+    }
 
-    // --- Lógica Original de Personalización ---
+    // --- Lógica de Personalización ---
     const customizationContent = {
         inheritance: `
             <div class="bg-white p-6 rounded-lg shadow-md">
@@ -515,30 +520,26 @@ class ResPartner(models.Model):
     const btnInheritance = document.getElementById('btn-inheritance');
     const btnStudio = document.getElementById('btn-studio');
     const customizationContainer = document.getElementById('customization-content');
-    let activeCustomizationType = 'inheritance'; // Para saber qué botón está activo
+    let activeCustomizationType = 'inheritance'; 
 
     function showCustomization(type) {
-        activeCustomizationType = type; // Guardar el estado
+        activeCustomizationType = type; 
         customizationContainer.innerHTML = customizationContent[type];
-        const isDark = htmlElement.classList.contains('dark');
         
         if (type === 'inheritance') {
-            btnInheritance.classList.add('bg-sky-600', 'text-white');
-            btnInheritance.classList.remove('bg-white', 'text-slate-700');
-            btnStudio.classList.add('bg-white', 'text-slate-700');
-            btnStudio.classList.remove('bg-sky-600', 'text-white');
+            btnInheritance.className = 'flex-1 p-2 rounded-md font-semibold bg-sky-600 text-white';
+            btnStudio.className = 'flex-1 p-2 rounded-md font-semibold bg-white text-slate-700';
         } else {
-            btnStudio.classList.add('bg-sky-600', 'text-white');
-            btnStudio.classList.remove('bg-white', 'text-slate-700');
-            btnInheritance.classList.add('bg-white', 'text-slate-700');
-            btnInheritance.classList.remove('bg-sky-600', 'text-white');
+            btnStudio.className = 'flex-1 p-2 rounded-md font-semibold bg-sky-600 text-white';
+            btnInheritance.className = 'flex-1 p-2 rounded-md font-semibold bg-white text-slate-700';
         }
     }
-    btnInheritance.addEventListener('click', () => showCustomization('inheritance'));
-    btnStudio.addEventListener('click', () => showCustomization('studio'));
-    
+    if(customizationContainer){
+        btnInheritance.addEventListener('click', () => showCustomization('inheritance'));
+        btnStudio.addEventListener('click', () => showCustomization('studio'));
+    }
 
-    // --- Lógica Original del Workflow ---
+    // --- Lógica del Workflow ---
     const workflowSteps = {
         crm: { title: '1. Gestión de Relaciones con el Cliente (CRM)', description: 'Todo comienza aquí. Se registra un nuevo cliente potencial. El equipo de ventas gestiona las oportunidades, llamadas y reuniones a través de un pipeline visual, asegurando un seguimiento adecuado.'},
         sales: { title: '2. Ventas', description: 'Se genera una cotización detallada desde la oportunidad en el CRM. Con el <strong>nuevo maquetador de cotizaciones de Odoo 17</strong>, se pueden crear propuestas personalizadas con bloques de contenido, imágenes y descripciones enriquecidas.'},
@@ -568,16 +569,17 @@ class ResPartner(models.Model):
         document.querySelectorAll('.workflow-step').forEach(el => el.classList.remove('active'));
         document.getElementById('step-' + stepKey).classList.add('active');
     }
-    workflowContainer.addEventListener('click', e => {
-        const stepElement = e.target.closest('.workflow-step');
-        if(stepElement) {
-            const stepKey = stepElement.dataset.step;
-            updateWorkflowDetails(stepKey);
-        }
-    });
+    if (workflowContainer) {
+        workflowContainer.addEventListener('click', e => {
+            const stepElement = e.target.closest('.workflow-step');
+            if(stepElement) {
+                const stepKey = stepElement.dataset.step;
+                updateWorkflowDetails(stepKey);
+            }
+        });
+    }
     
-
-    // --- Lógica Original de Scroll y Navegación ---
+    // --- Lógica de Scroll y Navegación ---
     const sections = document.querySelectorAll('.section-fade-in');
     const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
     const observer = new IntersectionObserver((entries) => {
@@ -602,10 +604,14 @@ class ResPartner(models.Model):
         });
     });
 
-    // --- Llamadas iniciales al cargar la página ---
-    setTheme(savedTheme); // Aplicar tema al inicio
-    showCustomization('inheritance'); // Mostrar la primera pestaña de personalización
-    updateWorkflowDetails('crm'); // Mostrar el primer paso del workflow
+    // --- Llamadas iniciales ---
+    setTheme(savedTheme); 
+    if(customizationContainer) {
+        showCustomization('inheritance');
+    }
+    if(workflowContainer) {
+        updateWorkflowDetails('crm');
+    }
 });
 </script>
 </body>
